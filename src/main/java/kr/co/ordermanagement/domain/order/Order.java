@@ -7,4 +7,38 @@ public class Order {
     private List<OrderedProduct> orderedProducts;
     private Integer totalPrice;
     private State state;
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Order(List<OrderedProduct> orderedProducts) {
+        this.orderedProducts = orderedProducts;
+        this.totalPrice = calculateTotalPrice(orderedProducts);
+        this.state = State.CREATED;
+    }
+
+    public Integer calculateTotalPrice(List<OrderedProduct> orderedProducts) {
+        Integer calcaulatedTotalPrice = 0;
+        for (OrderedProduct orderedProduct : orderedProducts) {
+            calcaulatedTotalPrice += orderedProduct.getPrice();
+        }
+        return calcaulatedTotalPrice;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public List<OrderedProduct> getOrderedProducts() {
+        return orderedProducts;
+    }
+
+    public Integer getTotalPrice() {
+        return totalPrice;
+    }
+
+    public State getState() {
+        return state;
+    }
 }

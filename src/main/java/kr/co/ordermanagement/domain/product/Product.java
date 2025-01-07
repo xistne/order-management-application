@@ -1,5 +1,7 @@
 package kr.co.ordermanagement.domain.product;
 
+import kr.co.ordermanagement.domain.exception.NotEnoughAmountException;
+
 import java.util.Objects;
 
 public class Product {
@@ -33,6 +35,16 @@ public class Product {
 
     public Boolean sameId(Long id) {
         return this.id.equals(id);
+    }
+
+    public void checkEnoughAmount(Integer orderedAmount) {
+        if(orderedAmount > this.amount) {
+            throw new NotEnoughAmountException(this.id + "번 상품의 수량이 부족합니다.");
+        }
+    }
+
+    public void decreaseAmount(Integer orderedAmount) {
+        this.amount = this.amount - orderedAmount;
     }
 
     @Override

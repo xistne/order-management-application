@@ -26,4 +26,9 @@ public class SimpleProductService {
         return productDtos;
     }
 
+    public void update(ProductDto productDto) {
+        Product product = productDto.toEntity(productDto);
+        productRepository.update(product);
+    }
+
 }
