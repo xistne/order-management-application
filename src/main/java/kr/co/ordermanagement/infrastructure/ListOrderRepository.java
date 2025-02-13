@@ -1,5 +1,6 @@
 package kr.co.ordermanagement.infrastructure;
 
+import kr.co.ordermanagement.domain.exception.EntityNotFoundException;
 import kr.co.ordermanagement.domain.order.Order;
 import kr.co.ordermanagement.domain.order.OrderRepository;
 import org.springframework.stereotype.Repository;
@@ -17,5 +18,10 @@ public class ListOrderRepository implements OrderRepository {
         order.setId(sequence.getAndAdd(1L));
         orders.add(order);
         return order;
+    }
+
+    @Override
+    public Order findById(Long orderId) {
+       return (Order)orders.stream().filter(order -> order.sameId(orderId)).findFirst().orElseThrow(() -> new EntityNotFoundException("Order를 찾지 못했습니다."));
     }
 }

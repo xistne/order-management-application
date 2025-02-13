@@ -1,14 +1,13 @@
 package kr.co.ordermanagement.application;
 
-import kr.co.ordermanagement.domain.exception.EntityNotFoundException;
 import kr.co.ordermanagement.domain.order.Order;
 import kr.co.ordermanagement.domain.order.OrderRepository;
 import kr.co.ordermanagement.domain.order.OrderedProduct;
 import kr.co.ordermanagement.domain.product.Product;
 import kr.co.ordermanagement.domain.product.ProductRepository;
+import kr.co.ordermanagement.presentation.dto.ChangeStateRequestDto;
 import kr.co.ordermanagement.presentation.dto.OrderProductRequestDto;
 import kr.co.ordermanagement.presentation.dto.OrderResponseDto;
-import kr.co.ordermanagement.presentation.dto.ProductDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -48,6 +47,13 @@ public class SimpleOrderService {
         Order order = new Order(orderedProducts);
         Order savedOrder = orderRepository.add(order);
         OrderResponseDto orderResponseDto = OrderResponseDto.toDto(savedOrder);
+        return orderResponseDto;
+    }
+
+    public OrderResponseDto changeOrderState(Long orderId, ChangeStateRequestDto changeStateRequestDto) {
+        Order order = orderRepository.findById(orderId);
+        order.changeStateForce(changeStateRequestDto.getState());
+        OrderResponseDto orderResponseDto = OrderResponseDto.toDto(order);
         return orderResponseDto;
     }
 }

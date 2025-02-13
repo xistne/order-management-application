@@ -41,4 +41,12 @@ public class Order {
     public State getState() {
         return state;
     }
+
+    public Boolean sameId(Long id) {
+        return id.equals(id);
+    }
+
+    public void changeStateForce(State state) {
+        this.state = state;
+    }
 }
