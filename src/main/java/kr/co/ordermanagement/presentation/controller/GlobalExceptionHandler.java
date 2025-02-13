@@ -14,7 +14,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<ErrorMessageDto> handleEntityNotFoundException(EntityNotFoundException ex) {
         ErrorMessageDto errorMessageDto = new ErrorMessageDto(ex.getMessage());
-        return new ResponseEntity<>(errorMessageDto, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(errorMessageDto, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(NotEnoughAmountException.class)
