@@ -19,7 +19,7 @@ public class SimpleProductService {
     }
 
     public List<ProductDto> findAll() {
-        List<Product> products = productRepository.findAll();
+        List<Product> products = this.productRepository.findAll();
         List<ProductDto> productDtos = products.stream()
                 .map(product -> ProductDto.toDto(product))
                 .toList();
@@ -28,7 +28,7 @@ public class SimpleProductService {
 
     public void update(ProductDto productDto) {
         Product product = productDto.toEntity(productDto);
-        productRepository.update(product);
+        this.productRepository.update(product);
     }
 
 }

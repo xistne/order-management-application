@@ -37,7 +37,7 @@ public class SimpleOrderService {
         // DESC : 주문상품을 돌면서 해당상품이 아예없을 경우 주문실패(해당상품없음), 있을경우 배열에 해당 상품의 id를 저장해 놓았다가 주문실패(수량부족), 그 외 주문성공
         List<OrderedProduct> orderedProducts = new ArrayList<>();
         for(OrderProductRequestDto orderProductRequestDto : orderProductRequestDtos) {
-            Product product = productRepository.findById(orderProductRequestDto.getId());
+            Product product = this.productRepository.findById(orderProductRequestDto.getId());
             // DESC : if문에서 orderProductRequestDto와 조회한 product를 비교하였는데 Product 개체의 함수를 이용하는걸로 변경
             product.checkEnoughAmount(orderProductRequestDto.getAmount());
             product.decreaseAmount(orderProductRequestDto.getAmount());
@@ -45,13 +45,13 @@ public class SimpleOrderService {
         }
         // DESC : 주문 생성
         Order order = new Order(orderedProducts);
-        Order savedOrder = orderRepository.add(order);
+        Order savedOrder = this.orderRepository.add(order);
         OrderResponseDto orderResponseDto = OrderResponseDto.toDto(savedOrder);
         return orderResponseDto;
     }
 
     public OrderResponseDto changeOrderState(Long orderId, ChangeStateRequestDto changeStateRequestDto) {
-        Order order = orderRepository.findById(orderId);
+        Order order = this.orderRepository.findById(orderId);
         order.changeStateForce(changeStateRequestDto.getState());
         OrderResponseDto orderResponseDto = OrderResponseDto.toDto(order);
         return orderResponseDto;
