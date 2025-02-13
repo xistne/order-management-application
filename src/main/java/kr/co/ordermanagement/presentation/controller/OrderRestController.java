@@ -30,4 +30,10 @@ public class OrderRestController {
         OrderResponseDto orderResponseDto = simpleOrderService.changeOrderState(orderId, changeStateRequestDto);
         return ResponseEntity.ok(orderResponseDto);
     }
+
+    @RequestMapping(value = "/orders/{orderId}", method = RequestMethod.GET)
+    public ResponseEntity<OrderResponseDto> getOrderById(@PathVariable Long orderId) {
+        OrderResponseDto orderResponseDto = simpleOrderService.findById(orderId);
+        return ResponseEntity.ok(orderResponseDto);
+    }
 }

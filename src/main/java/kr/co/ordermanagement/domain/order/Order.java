@@ -43,7 +43,7 @@ public class Order {
     }
 
     public Boolean sameId(Long id) {
-        return id.equals(id);
+        return this.id.equals(id);
     }
 
     public void changeStateForce(State state) {
