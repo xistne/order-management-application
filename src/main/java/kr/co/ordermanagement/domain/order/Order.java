@@ -53,4 +53,9 @@ public class Order {
     public Boolean sameState(State state) {
         return this.state.equals(state);
     }
+
+    public void cancel() {
+        this.state.checkCancellable();
+        this.state = State.CANCELED;
+    }
 }

@@ -69,4 +69,11 @@ public class SimpleOrderService {
         List<OrderResponseDto> orderResponseDtos = orders.stream().map(order -> OrderResponseDto.toDto(order)).toList();
         return orderResponseDtos;
     }
+
+    public OrderResponseDto cancelOrderById(Long orderId) {
+        Order order = this.orderRepository.findById(orderId);
+        order.cancel();
+        OrderResponseDto orderResponseDto = OrderResponseDto.toDto(order);
+        return orderResponseDto;
+    }
 }

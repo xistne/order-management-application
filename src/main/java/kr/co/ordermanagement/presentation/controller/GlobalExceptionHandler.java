@@ -1,5 +1,6 @@
 package kr.co.ordermanagement.presentation.controller;
 
+import kr.co.ordermanagement.domain.exception.CanNotCancellableStateException;
 import kr.co.ordermanagement.domain.exception.EntityNotFoundException;
 import kr.co.ordermanagement.domain.exception.NotEnoughAmountException;
 import kr.co.ordermanagement.presentation.dto.ErrorMessageDto;
@@ -18,6 +19,12 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(NotEnoughAmountException.class)
     public ResponseEntity<ErrorMessageDto> handleNotEnoughAmountException(NotEnoughAmountException ex) {
+        ErrorMessageDto errorMessageDto = new ErrorMessageDto(ex.getMessage());
+        return new ResponseEntity<>(errorMessageDto, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(CanNotCancellableStateException.class)
+    public ResponseEntity<ErrorMessageDto> handleCanNotCancellableStateException(CanNotCancellableStateException ex) {
         ErrorMessageDto errorMessageDto = new ErrorMessageDto(ex.getMessage());
         return new ResponseEntity<>(errorMessageDto, HttpStatus.INTERNAL_SERVER_ERROR);
     }
